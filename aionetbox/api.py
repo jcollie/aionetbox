@@ -225,8 +225,8 @@ class AIONetbox:
         """Close all open connections"""
         await self.session.close()
 
-    def __del__(self):
-        asyncio.ensure_future(self.session.close())
+    # def __del__(self):
+    #     asyncio.ensure_future(self.session.close())
 
 
 class NetboxApi:
