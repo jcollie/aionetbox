@@ -3,7 +3,7 @@ import re
 import json
 import asyncio
 import logging
-import collections
+import collections.abc
 
 from aionetbox.utils import singleton
 
@@ -423,7 +423,7 @@ class NetboxResponseObject:
             value = val
 
             if ctype == 'object':
-                if isinstance(val, collections.Mapping):
+                if isinstance(val, collections.abc.Mapping):
                     value = cls.from_response(data=val, **spec)
             elif ctype == 'array':
                 # If we have an array of objects, make sure the value is iterable, then produce a list of objects
@@ -442,7 +442,7 @@ class NetboxResponseObject:
         if isinstance(obj, NetboxResponseObject):
             return obj.dict()
 
-        if isinstance(obj, collections.Mapping):
+        if isinstance(obj, collections.abc.Mapping):
             return {k: NetboxResponseObject._obj(v) for k, v in obj.items()}
 
         if isinstance(obj, list):
